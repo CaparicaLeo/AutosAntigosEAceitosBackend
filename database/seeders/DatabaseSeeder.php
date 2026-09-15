@@ -16,11 +16,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        if (env('ADMIN_EMAIL') && env('ADMIN_PASSWORD')) {
+            User::updateOrCreate(
+                ['email' => (string) env('ADMIN_EMAIL')],
+                [
+                    'name' => env('ADMIN_NAME', 'Admin'),
+                    'password' => (string) env('ADMIN_PASSWORD'),
+                ]
+            );
+        }
 
-        Visitor::factory()->count(15)->create();
+        if (! app()->environment('production')) {
+            User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+            ]);
+
+            Visitor::factory()->count(15)->create();
+        }
     }
 }

@@ -28,4 +28,9 @@ class ApiAuthController extends Controller
 
         return response()->noContent();
     }
+
+    public function user(Request $request): JsonResponse
+    {
+        return response()->json($request->user());
+    }
 }
