@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Auth\ApiAuthController;
+use App\Http\Controllers\HealthController;
 use App\Http\Controllers\VisitorController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('/health', HealthController::class);
 
 Route::post('login', [ApiAuthController::class, 'login']);
 
